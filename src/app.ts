@@ -1,14 +1,19 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import * as express from "express";
 import * as logger from "morgan";
 import * as path from "path";
-
+const bodyParser = require("body-parser");
+const cors = require("cors");
 import { errorHandler, errorNotFoundHandler } from "./middlewares/errorHandler";
 
 // Routes
 import { index } from "./routes/index";
 // Create Express server
 export const app = express();
-const cors = require("cors");
+
+const jsonParser = bodyParser.json();
+
+app.use(bodyParser.json());
 app.use(cors());
 // Express configuration
 app.set("port", 8080);

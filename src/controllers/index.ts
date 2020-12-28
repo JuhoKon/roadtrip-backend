@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import axios from "axios";
-const API = "API_KEY_HERE";
+const API = "API";
 
 export const index = async (req: Request, res: Response): Promise<void> => {
   res.json({ ok: "OKEI" });
@@ -25,6 +25,7 @@ export const autocomplete = async (
   const data = results.data;
   res.json({ data });
 };
+
 export const placeDetails = async (
   req: Request,
   res: Response,
@@ -35,6 +36,33 @@ export const placeDetails = async (
   }
   const results = await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?key=${API}&place_id=${placeID}
   `);
+  const data = results.data;
+  res.json({ data });
+};
+
+export const getDirections = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  const { destination, origin, waypoints } = req.body;
+  console.log(destination);
+  console.log(waypoints.join("|place_id:"));
+  const results = await axios.get(
+    `https://maps.googleapis.com/maps/api/directions/json?origin=place_id:${destination}&destination=place_id:${origin}&waypoints=place_id:${waypoints.join(
+      "|place_id:",
+    )}&key=${API}`,
+  );
+
+  const data = results.data;
+  res.json({ data });
+};
+
+export const nearbySearch = async (req: Request, res: Response) => {
+  const { location, radius, type } = req.body;
+  console.log(location, radius, type);
+  const results = await axios.get(
+    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.lat},${location.lng}&radius=${radius}&type=restaurant&key=${API}`,
+  );
   const data = results.data;
   res.json({ data });
 };

@@ -4,7 +4,6 @@ import * as logger from "morgan";
 import * as path from "path";
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const favicon = require("serve-favicon");
 // Routes
 import { index } from "./routes/index";
 // Create Express servers
@@ -29,7 +28,6 @@ app.use(
   "/static",
   express.static(path.join(__dirname, `${buildFolder}/static`)),
 );
-app.use(favicon(path.join(__dirname, "public/favicon.ico")));
 app.get("/", function (req, res) {
   res.render("index.html", { REACT_APP_API_KEY });
 });

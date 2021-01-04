@@ -4,20 +4,21 @@ import * as logger from "morgan";
 import * as path from "path";
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const favicon = require("serve-favicon");
 // Routes
 import { index } from "./routes/index";
-// Create Express server
+// Create Express servers
 export const app = express();
+
 require("dotenv").config();
 const jsonParser = bodyParser.json();
-
+app.use(express.static("public"));
 const { REACT_APP_API_KEY } = process.env;
 
 app.use(bodyParser.json());
 app.use(cors());
 // Express configuration
 app.set("port", process.env.PORT || 8080);
-
 app.use(logger("dev"));
 
 const buildFolder = "../build";
@@ -28,6 +29,7 @@ app.use(
   "/static",
   express.static(path.join(__dirname, `${buildFolder}/static`)),
 );
+app.use(favicon(path.join(__dirname, "public/favicon.ico")));
 app.get("/", function (req, res) {
   res.render("index.html", { REACT_APP_API_KEY });
 });

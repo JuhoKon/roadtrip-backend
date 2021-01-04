@@ -3,7 +3,7 @@ import axios from "axios";
 
 require("dotenv").config();
 
-const { REACT_APP_API_KEY } = process.env;
+const { API_KEY } = process.env;
 
 export const index = async (req: Request, res: Response): Promise<void> => {
   res.json({ ok: "OKEI" });
@@ -14,7 +14,7 @@ export const autocomplete = async (
   res: Response,
 ): Promise<void> => {
   const query: any = req.query.query;
-  console.log(REACT_APP_API_KEY);
+  console.log(API_KEY);
   if (!query) {
     res.status(400).json({ error: "No query" });
     return;
@@ -24,7 +24,7 @@ export const autocomplete = async (
     .get(
       `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(
         query,
-      )}&key=${REACT_APP_API_KEY}`,
+      )}&key=${API_KEY}`,
     )
     .catch((e) => {
       res.json({ e });
@@ -43,7 +43,7 @@ export const placeDetails = async (
   if (!placeID) {
     res.status(400).json({ error: "No ID" });
   }
-  const results = await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?key=${REACT_APP_API_KEY}&place_id=${placeID}
+  const results = await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?key=${API_KEY}&place_id=${placeID}
   `);
   const data = results.data;
   res.json({ data });
@@ -59,7 +59,7 @@ export const getDirections = async (
   const results = await axios.get(
     `https://maps.googleapis.com/maps/api/directions/json?origin=place_id:${destination}&destination=place_id:${origin}&waypoints=place_id:${waypoints.join(
       "|place_id:",
-    )}&key=${REACT_APP_API_KEY}`,
+    )}&key=${API_KEY}`,
   );
 
   const data = results.data;
@@ -69,7 +69,7 @@ export const getDirections = async (
 export const nearbySearch = async (req: Request, res: Response) => {
   const { location, radius, type, keyword } = req.body;
   console.log(location, radius, type, keyword);
-  let query = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.lat},${location.lng}&radius=${radius}&key=${REACT_APP_API_KEY}`;
+  let query = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.lat},${location.lng}&radius=${radius}&key=${API_KEY}`;
   if (type && type !== "none") {
     query = query.concat(`&type=${type}`);
   }

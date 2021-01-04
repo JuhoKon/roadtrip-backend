@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
 import axios from "axios";
-const API = "AIzaSyAyE4jHf8w_cZs3pd5ZsidArr4JbqwsB1Y";
+
+require("dotenv").config();
+
+const { REACT_APP_API_KEY } = process.env;
 
 export const index = async (req: Request, res: Response): Promise<void> => {
   res.json({ ok: "OKEI" });
@@ -11,6 +14,7 @@ export const autocomplete = async (
   res: Response,
 ): Promise<void> => {
   const query: any = req.query.query;
+  console.log(REACT_APP_API_KEY);
   if (!query) {
     res.status(400).json({ error: "No query" });
     return;
@@ -19,7 +23,7 @@ export const autocomplete = async (
   const results = await axios.get(
     `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(
       query,
-    )}&key=${API}`,
+    )}&key=${REACT_APP_API_KEY}`,
   );
 
   const data = results.data;
@@ -34,7 +38,7 @@ export const placeDetails = async (
   if (!placeID) {
     res.status(400).json({ error: "No ID" });
   }
-  const results = await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?key=${API}&place_id=${placeID}
+  const results = await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?key=${REACT_APP_API_KEY}&place_id=${placeID}
   `);
   const data = results.data;
   res.json({ data });
@@ -50,7 +54,7 @@ export const getDirections = async (
   const results = await axios.get(
     `https://maps.googleapis.com/maps/api/directions/json?origin=place_id:${destination}&destination=place_id:${origin}&waypoints=place_id:${waypoints.join(
       "|place_id:",
-    )}&key=${API}`,
+    )}&key=${REACT_APP_API_KEY}`,
   );
 
   const data = results.data;
@@ -60,7 +64,7 @@ export const getDirections = async (
 export const nearbySearch = async (req: Request, res: Response) => {
   const { location, radius, type, keyword } = req.body;
   console.log(location, radius, type, keyword);
-  let query = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.lat},${location.lng}&radius=${radius}&key=${API}`;
+  let query = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.lat},${location.lng}&radius=${radius}&key=${REACT_APP_API_KEY}`;
   if (type && type !== "none") {
     query = query.concat(`&type=${type}`);
   }

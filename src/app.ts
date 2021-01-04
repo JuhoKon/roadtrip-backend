@@ -16,7 +16,7 @@ const { REACT_APP_API_KEY } = process.env;
 app.use(bodyParser.json());
 app.use(cors());
 // Express configuration
-app.set("port", 8080);
+app.set("port", process.env.PORT || 8080);
 
 app.use(logger("dev"));
 

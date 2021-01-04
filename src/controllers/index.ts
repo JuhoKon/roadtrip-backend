@@ -20,14 +20,19 @@ export const autocomplete = async (
     return;
   }
   console.log(query);
-  const results = await axios.get(
-    `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(
-      query,
-    )}&key=${REACT_APP_API_KEY}`,
-  );
-
-  const data = results.data;
-  res.json({ data });
+  const results = await axios
+    .get(
+      `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(
+        query,
+      )}&key=${REACT_APP_API_KEY}`,
+    )
+    .catch((e) => {
+      res.json({ e });
+    });
+  if (results) {
+    const data = results.data;
+    res.json({ data });
+  }
 };
 
 export const placeDetails = async (

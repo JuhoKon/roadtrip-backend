@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import axios from "axios";
-const API = "API";
+const API = "AIzaSyAyE4jHf8w_cZs3pd5ZsidArr4JbqwsB1Y";
 
 export const index = async (req: Request, res: Response): Promise<void> => {
   res.json({ ok: "OKEI" });
@@ -58,11 +58,17 @@ export const getDirections = async (
 };
 
 export const nearbySearch = async (req: Request, res: Response) => {
-  const { location, radius, type } = req.body;
-  console.log(location, radius, type);
-  const results = await axios.get(
-    `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.lat},${location.lng}&radius=${radius}&type=restaurant&key=${API}`,
-  );
+  const { location, radius, type, keyword } = req.body;
+  console.log(location, radius, type, keyword);
+  let query = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.lat},${location.lng}&radius=${radius}&key=${API}`;
+  if (type && type !== "none") {
+    query = query.concat(`&type=${type}`);
+  }
+  if (keyword) {
+    query = query.concat(`&keyword=${keyword}`);
+  }
+
+  const results = await axios.get(query);
   const data = results.data;
   res.json({ data });
 };

@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import axios from "axios";
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 require("dotenv").config();
 
 const { API_KEY } = process.env;
@@ -43,6 +44,7 @@ export const placeDetails = async (
   if (!placeID) {
     res.status(400).json({ error: "No ID" });
   }
+  // eslint-disable-next-line max-len
   const results = await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?key=${API_KEY}&place_id=${placeID}
   `);
   const data = results.data;
@@ -54,9 +56,9 @@ export const getDirections = async (
   res: Response,
 ): Promise<void> => {
   const { destination, origin, waypoints } = req.body;
-  console.log(destination);
-  console.log(waypoints.join("|place_id:"));
+
   const results = await axios.get(
+    // eslint-disable-next-line max-len
     `https://maps.googleapis.com/maps/api/directions/json?origin=place_id:${destination}&destination=place_id:${origin}&waypoints=place_id:${waypoints.join(
       "|place_id:",
     )}&key=${API_KEY}`,
@@ -66,9 +68,12 @@ export const getDirections = async (
   res.json({ data });
 };
 
-export const nearbySearch = async (req: Request, res: Response) => {
+export const nearbySearch = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
   const { location, radius, type, keyword } = req.body;
-  console.log(location, radius, type, keyword);
+  // eslint-disable-next-line max-len
   let query = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.lat},${location.lng}&radius=${radius}&key=${API_KEY}`;
   if (type && type !== "none") {
     query = query.concat(`&type=${type}`);
@@ -80,4 +85,12 @@ export const nearbySearch = async (req: Request, res: Response) => {
   const results = await axios.get(query);
   const data = results.data;
   res.json({ data });
+};
+
+export const getPhoto = async (req: Request, res: Response): Promise<void> => {
+  const { photoId } = req.body;
+  const results = await axios.get(
+    `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoId}&key=${API_KEY}`,
+  );
+  res.json({ url: results.request._redirectable._options.href });
 };

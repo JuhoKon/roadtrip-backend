@@ -1,7 +1,16 @@
 {
   "name": "express-ts-template",
   "version": "1.0.0",
-  "description": "Simple starter template for ExpressJs and TypeScript based on expressjs/generator and TypeScript-Node-Starter",
+  "author": "Juho Kontiainen",
+  "description": "Backend for a web application for planning and creating roadtrips.",
+  "homepage": "https://github.com/JuhoKon/roadtrip-backend",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JuhoKon/roadtrip-backend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JuhoKon/roadtrip-backend/issues"
+  },
   "main": "server.js",
   "scripts": {
     "start": "npm run serve",
@@ -22,7 +31,6 @@
     "make-prettier": "yarn run-prettier --write",
     "tsc": "tsc"
   },
-  "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.0",

@@ -1,60 +1,78 @@
-# Express TypeScript template
+<h1 align="center">Welcome to roadtrip-planner backend 👋</h1>
+<p>
 
-# Pre-reqs
+  <a href="https://github.com/JuhoKon/roadtrip-backend#readme" target="_blank">
+    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
+  </a>
+  <a href="https://github.com/JuhoKon/roadtrip-backend/graphs/commit-activity" target="_blank">
+    <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
+  </a>
+</p>
 
-- Install [Node.js](https://nodejs.org/en/)
-- Install [VS Code](https://code.visualstudio.com/)
+> Backend for a web application for planning and creating roadtrips.
 
-# Getting started
+### 🏠 [Homepage](https://github.com/JuhoKon/roadtrip-backend)
 
-- Clone the repository
+### ✨ [Demo](https://roadtrip-planner-gis.herokuapp.com/)
 
-```
-git clone https://github.com/greenroach/express-ts-template.git
-```
+## About
 
-- Install dependencies
+This is a backend-server (Express.js) for Roadtrip-planner.
+Frontend is available: [here](https://github.com/JuhoKon/roadtrip-front).
 
-```
-cd <project_name>
-npm install
-```
+For the time being, a demo is available at: [here](https://roadtrip-planner-gis.herokuapp.com/).
 
-- Build and run the project
+## Setup
 
-```
-npm run build
-npm start
-```
+You need two API keys from Google Maps API for Places, Directions and Maps.
 
-Navigate to `http://localhost:3000`
+Create .env file with following variables:
 
-### Using the debugger in VS Code
+- REACT_APP_API_KEY (frontend API key, used for loading Google Maps in React)
+- API_KEY (unrestricted API key, used for Google API )
 
-Debugging is one of the places where VS Code really shines over other editors.
-Node.js debugging in VS Code is easy to setup and even easier to use.
-This project comes pre-configured with everything you need to get started.
+## Install
 
-When you hit `F5` in VS Code, it looks for a top level `.vscode` folder with a `launch.json` file.
-In this file, you can tell VS Code exactly what you want to do:
-
-```json
-{
-  "type": "node",
-  "request": "attach",
-  "name": "Attach by Process ID",
-  "processId": "${command:PickProcess}",
-  "protocol": "inspector"
-}
+```sh
+yarn install
 ```
 
-This is mostly identical to the "Node.js: Attach by Process ID" template with one minor change.
-We added `"protocol": "inspector"` which tells VS Code that we're using the latest version of Node which uses a new debug protocol.
+## Usage
 
-With this file in place, you can hit `F5` to attach a debugger.
-You will probably have multiple node processes running, so you need to find the one that shows `node dist/server.js`.
-Now just set your breakpoints and go!
+```sh
+yarn run watch
+```
+
+## Deployment
+
+Copy React-build files to the `build`-folder. Then:
+
+```sh
+yarn run build
+yarn run serve
+```
+
+Enter `http://localhost:8080/` and the application should be running.
+
+## Author
+
+👤 **Juho Kontiainen**
+
+- Github: [@JuhoKon](https://github.com/JuhoKon)
+
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/JuhoKon/roadtrip-backend/issues). You can also take a look at the [contributing guide](https://github.com/JuhoKon/roadtrip-backend/blob/master/CONTRIBUTING.md).
+
+## Show your support
+
+Give a ⭐️ if this project helped you!
+
+## 📝 License
+
+Copyright © 2021 [Juho Kontiainen](https://github.com/JuhoKon).<br />
+This project is [ISC](https://github.com/JuhoKon/roadtrip-backend/blob/master/LICENSE) licensed.
 
 ---
 
-Based on [TypeScript Node Starter](https://github.com/Microsoft/TypeScript-Node-Starter) and [Express Generator](https://github.com/expressjs/generator)
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
